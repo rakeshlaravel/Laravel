@@ -41,6 +41,6 @@ Route::get('/send-mail', function(){
     ];
     Mail::send('email.firstmail', $data, function($message){
         $message->to('rakesharma1247@gmail.com', 'Rakesh')->subject('This is the testing mail from Laravel Developer');
-        dd("Email has been sent");
+        echo "Email has been sent"; die;
     });
 });
