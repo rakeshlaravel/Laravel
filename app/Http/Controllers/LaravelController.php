@@ -12,6 +12,7 @@ use Auth;
 use DB;
 use App\User;
 
+
 class LaravelController extends Controller
 {
     /**
@@ -19,10 +20,17 @@ class LaravelController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('login');
+    }
+
     public function index()
     {
         if(Auth::check())
             return view('home.display')->with('index', 'true');
+
         else
             return redirect('/');
     }
@@ -228,6 +236,22 @@ class LaravelController extends Controller
         } else {
             return redirect ('/');
         }        
+    }
+
+    public function session_data(Request $request) {
+        //$request->session()->put(['Name'=>'SessionName', 'Value'=>'Rakesh']);   // writing data into session
+        echo "<pre>"; print_r( $request->session()->all());                                      // reading all data from the session
+        //echo $request->session()->get('Name');                                // reading specific data from the session
+
+        //session(['data'=>'value']);                                           // writing data to the global session
+        //echo session('Name');
+
+        //$request->session()->forget('Name');                               // used to delete a specific value from the session
+        //$request->session()->flush();                                      //  used to delete entire session
+
+        //$request->session()->flash('message', 'You are watching session's session');         // writes into the session and it lives only for one request
+        // return $request->session()->get('message');                                         // display on the page message value
+        dd("Session's session ends");
     }
 
 }

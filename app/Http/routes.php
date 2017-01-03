@@ -32,3 +32,15 @@ Route::match(['post'], '/employee/delete', 'LaravelController@delete_employee');
 Route::match(['post'], '/employee/add', 'LaravelController@add_employee');
 
 Route::match(['get','post'], '/profile', 'LaravelController@profile');
+Route::match(['get','post'], '/session', 'LaravelController@session_data');
+
+Route::get('/send-mail', function(){
+    $data = [
+                'title'=>'First Mail',
+                'content'=>'Thank you for joining your community'
+    ];
+    Mail::send('email.firstmail', $data, function($message){
+        $message->to('rakesharma1247@gmail.com', 'Rakesh')->subject('This is the testing mail from Laravel Developer');
+        dd("Email has been sent");
+    });
+});
